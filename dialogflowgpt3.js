@@ -20,14 +20,13 @@ app.post("/dialogflow", express.json(), (req, res) => {
   async function defaultFallback(agent) {
       // agent.add('Sorry! I am unable to understand this at the moment. I am still learning humans. You can pick any of the service that might help me.');
       const instance = axios.create({
-        baseURL: 'https://api.openai.com/v1/chat/completions',
+        baseURL: 'https://api.openai.com/v1/',
         headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
       });
     
       const dialog = [
         `The following is a conversation with an AI assistant that can have meaningful conversations with users. The assistant is helpful, empathic, and friendly. Its objective is to make the user feel better by feeling heard. With each response, the AI assisstant prompts the user to continue the conversation in a natural way.
-
-        AI: Hello, I am Debra! I am your virtual personal assistant from Orient Telecoms. How are you doing today?`,
+        AI: Hello, I am Miera! I am your virtual personal assistant from RTFTT Signal Membership. How can I help you today?`,
       ];
       let query = agent.query;
       console.log('querytext ', query)
@@ -36,19 +35,18 @@ app.post("/dialogflow", express.json(), (req, res) => {
       // agent.add(`you said ${query}`)
     
       const completionParmas = {
-        messages: dialog.join('\n'),
-        max_tokens: 250,
-        temperature: 0.6,
+        prompt: dialog.join('\n'),
+        max_tokens: 60,
+        temperature: 0.85,
         n: 1,
-        stream: true,
+        stream: false,
         logprobs: null,
         echo: false,
         stop: '\n',
-        engine: 'gpt-3.5-turbo' // use GPT-3.5-turbo engine
       };
     
       try {
-        const result = await instance.post('https://api.openai.com/v1/chat/completions', completionParmas);
+        const result = await instance.post('/engines/davinci/completions', completionParmas);
         const botResponse = result.data.choices[0].text.trim();
         agent.add(botResponse);
       } catch (err) {
