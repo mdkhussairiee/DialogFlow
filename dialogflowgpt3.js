@@ -26,7 +26,7 @@ app.post("/dialogflow", express.json(), (req, res) => {
     
       const dialog = [
         `The following is a conversation with an AI assistant that can have meaningful conversations with users. The assistant is helpful, empathic, and friendly. Its objective is to make the user feel better by feeling heard. With each response, the AI assisstant prompts the user to continue the conversation in a natural way.
-        AI: Hello, I am Miera! I am your virtual personal assistant from RTFTT Signal Membership. How can I help you today?`,
+        AI: Hello, I am Debra! I am your virtual personal assistant from Asrix Prime. How are you doing today?`,
       ];
       let query = agent.query;
       console.log('querytext ', query)
