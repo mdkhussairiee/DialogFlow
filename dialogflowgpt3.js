@@ -20,7 +20,7 @@ app.post("/dialogflow", express.json(), (req, res) => {
   async function defaultFallback(agent) {
       // agent.add('Sorry! I am unable to understand this at the moment. I am still learning humans. You can pick any of the service that might help me.');
       const instance = axios.create({
-        baseURL: 'https://api.openai.com/v1/',
+        baseURL: 'https://api.openai.com/v1/chat/completions',
         headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
       });
     
@@ -36,7 +36,7 @@ app.post("/dialogflow", express.json(), (req, res) => {
       // agent.add(`you said ${query}`)
     
       const completionParmas = {
-        prompt: dialog.join('\n'),
+        messages: dialog.join('\n'),
         max_tokens: 250,
         temperature: 0.6,
         n: 1,
@@ -48,7 +48,7 @@ app.post("/dialogflow", express.json(), (req, res) => {
       };
     
       try {
-        const result = await instance.post('/chat/completions', completionParmas);
+        const result = await instance.post('https://api.openai.com/v1/chat/completions', completionParmas);
         const botResponse = result.data.choices[0].text.trim();
         agent.add(botResponse);
       } catch (err) {
