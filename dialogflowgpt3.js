@@ -44,6 +44,7 @@ app.post("/dialogflow", express.json(), (req, res) => {
         logprobs: null,
         echo: false,
         stop: '\n',
+        engine: 'gpt-3.5-turbo' // use GPT-3.5-turbo engine
       };
     
       try {
