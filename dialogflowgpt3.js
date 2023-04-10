@@ -37,7 +37,7 @@ app.post("/dialogflow", express.json(), (req, res) => {
       const completionParmas = {
         prompt: dialog.join('\n'),
         max_tokens: 200,
-        temperature: 0.6,
+        temperature: 0.85,
         n: 1,
         stream: false,
         logprobs: null,
